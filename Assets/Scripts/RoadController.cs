@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class RoadController : MonoBehaviour
 {
@@ -9,7 +8,7 @@ public class RoadController : MonoBehaviour
     public GameObject crystal;
     private Vector3 lastPos = new Vector3(0f, -1.75f, 0f);
     private Vector3 offset = new Vector3(0f, 0f, 0f);
-    
+    public static bool stopInvoking = false;
     private float TimeToLive = 4f;
 
     void Start()
@@ -42,10 +41,20 @@ public class RoadController : MonoBehaviour
         {
             GameObject _crystal = Instantiate(crystal, transform) as GameObject;
             _crystal.transform.position = lastPos + offset + new Vector3 (0f, 1.75f, 0f);
+            Destroy(_crystal, 5f);
             
         }
         
         lastPos = _platform.transform.position;
         Destroy(_platform, TimeToLive);
+    }
+
+    void Update()
+    {
+        if (stopInvoking)
+        {
+            CancelInvoke();
+            stopInvoking = false;
+        }
     }
 }
