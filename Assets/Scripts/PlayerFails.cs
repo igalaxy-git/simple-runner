@@ -13,7 +13,7 @@ public class PlayerFails : MonoBehaviour {
         if(Physics.Raycast (transform.position, Vector3.down, out hit, 5f) && hit.transform.gameObject.tag == "Ground") {
             rb.AddForce(-Vector3.up * 0);
         } else {
-            rb.AddForce(-Vector3.up * 50);
+            rb.AddForce(-Vector3.up * 250);
             RoadController.stopInvoking = true;
             cameraObj.GetComponent<CameraController>().enabled = false;
             menu.SetActive(true);
